@@ -74,11 +74,11 @@ button:active {
   opacity: 90%;
 }
 
-.operators{
+.operators, #AC, #DEL{
   background-color: rgb(180, 147, 147);
 }
 
-.operators:hover {
+.operators:hover, .delete:hover {
   background-color: rgb(151, 112, 115);
 }
 
