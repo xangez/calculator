@@ -13,7 +13,7 @@ html, body {
 
 body {
   font-size: 20px;
-  background-color: rgb(243, 239, 241);
+  background-color: rgb(247, 241, 233);
   font-size: 30px;
 }
 
@@ -54,6 +54,11 @@ body {
   flex-wrap: wrap;
 }
 
+#keys>div {
+  width: 420px;
+  display: flex;
+}
+
 button {
   background-color: rgb(223, 206, 206);
   border: none;
@@ -68,11 +73,11 @@ button {
 }
 
 button:hover {
-  background-color:  rgb(207, 181, 181);
+  background-color: rgb(207, 181, 181);
 }
 
 button:active {
-  color:black;
+  background-color: rgb(207, 181, 181);
   opacity: 90%;
 }
 
@@ -81,7 +86,7 @@ button:active {
 }
 
 .operators:hover, #AC:hover, #DEL:hover, #equals:hover {
-  background-color: rgb(151, 112, 115);
+  background-color: rgb(158, 116, 120);
 }
 
 

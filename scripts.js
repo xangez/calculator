@@ -61,16 +61,16 @@ function displayOperator(e){
   if (previous == "operator") {
     let currentDisplayed = equationDisplay.textContent;
     equationDisplay.textContent = currentDisplayed.slice(0,-1) + operator;
-    equationArray("operator", operator)
+    equationArray("operator", operator);
+    previous = "operator";
   }
   
   else if (equationDisplay.textContent != ''){
     equationArray("operator", operator);
     let addClicked = document.createTextNode(operator);
     equationDisplay.appendChild(addClicked);
+    previous = "operator";
   }
-  previous = "operator";
-
 }
 
 function displayClear(){
@@ -105,7 +105,6 @@ function operate(){
     }
   });
 
-
   while (newArray.length > 1){
     let newItem = 0;
     if (newArray.findIndex(key => key == "*" || key == "/") != -1) {
@@ -118,7 +117,6 @@ function operate(){
         newItem = divide(newArray[i - 1], newArray[i + 1]);
         newArray.splice(i-1, 3, newItem);  
       }
-
     }
     else {
       i = newArray.findIndex(key => key == "+" || key == "-")
@@ -134,7 +132,6 @@ function operate(){
   }
   let rounded = parseFloat(newArray[0].toFixed(8));
   totalDisplay.textContent = rounded;
-
 }
 
 function add(num1, num2) {
