@@ -20,10 +20,13 @@ equals.addEventListener('click', operate);
 
 let equation = []; // eg ["12", "+", "2"]
 let previous = "operator";
+let totalInputted = 0;
+
 
 function equationArray(type, key){
   if (type == "number" && previous == "number"){
     equation[equation.length - 1] += key;
+    totalInputted++;
   }
   
   else if (type =="operator" && previous == "operator"){
@@ -32,18 +35,27 @@ function equationArray(type, key){
   
   else {
     equation.push(key);
+    totalInputted++;
   }
 }
 
 function displayNumber(e){
-  let number = e.target.id;
-  equationArray("number", number);
-  let numberClicked = document.createTextNode(number);
-  equationDisplay.appendChild(numberClicked);
-  previous = "number";
+  if (totalInputted > 25){
+    return;
+  }
+  else {
+    let number = e.target.id;
+    equationArray("number", number);
+    let numberClicked = document.createTextNode(number);
+    equationDisplay.appendChild(numberClicked);
+    previous = "number";
+  }
 }
 
 function displayOperator(e){
+  if (totalInputted > 25){
+    return;
+  }
   let operator = e.target.id;
   
   if (previous == "operator") {
@@ -66,6 +78,7 @@ function displayClear(){
   equation = [];
   totalDisplay.textContent = '';
   previous = '';
+  totalInputted = 0;
 }
 
 function displayDelete(){
@@ -85,7 +98,7 @@ function operate(){
 
   newArray = equation.map((str, index) => {
     if (index== 0 || index%2 == 0){
-    return parseInt(str);
+    return Number(str);
     }
     else {
       return str;
@@ -119,7 +132,8 @@ function operate(){
       }
     }
   }
-  totalDisplay.textContent = newArray[0];
+  let rounded = parseFloat(newArray[0].toFixed(8));
+  totalDisplay.textContent = rounded;
 
 }
 

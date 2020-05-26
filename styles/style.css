@@ -23,7 +23,7 @@ body {
 }
 
 #display {
-  background-color: rgb(58, 50, 50);
+  background-color: rgb(41, 40, 43);
   height: 150px;
   width: 415px;
   margin: 1px;
@@ -37,7 +37,6 @@ body {
   align-items: center;
   padding-right: 15px;
   font-size: 50px;
-  background-color: rgb(41, 40, 43);
 }
 
 #equationDisplay{
@@ -69,7 +68,7 @@ button {
 }
 
 button:hover {
-  background-color:  rgb(197, 176, 176);
+  background-color:  rgb(207, 181, 181);
 }
 
 button:active {
