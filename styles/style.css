@@ -31,18 +31,21 @@ body {
 }
 
 #totalDisplay{
-  line-height: 90px;
+  height: 90px;
   display: flex;
   justify-content: flex-end;
-  margin-right: 15px;
+  align-items: center;
+  padding-right: 15px;
   font-size: 50px;
+  background-color: rgb(41, 40, 43);
 }
 
 #equationDisplay{
-  line-height: 60px;
+  height: 60px;
   display: flex;
   justify-content: flex-end;
-  margin-right: 15px;
+  align-items: center;
+  padding-right: 15px;
   opacity: 80%;
 }
 

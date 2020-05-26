@@ -1,5 +1,7 @@
 
 const equationDisplay = document.querySelector("#equationDisplay");
+const totalDisplay = document.querySelector("#totalDisplay");
+
 
 const numbers = document.querySelectorAll('.numbers');
 numbers.forEach(number => number.addEventListener('click', displayNumber));
@@ -16,18 +18,18 @@ del.addEventListener('click', displayDelete);
 const equals = document.querySelector('#equals');
 equals.addEventListener('click', operate);
 
-let equation = []; // eg ["12", "+", "2", ]
-let previous = '';
+let equation = []; // eg ["12", "+", "2"]
+let previous = "operator";
 
 function equationArray(type, key){
   if (type == "number" && previous == "number"){
     equation[equation.length - 1] += key;
   }
-  /*
-  else if (previous == "operator"){
-    equation[equation.length - 1] == key;
+  
+  else if (type =="operator" && previous == "operator"){
+    equation[equation.length - 1] = key;
   }
-  */
+  
   else {
     equation.push(key);
   }
@@ -43,74 +45,89 @@ function displayNumber(e){
 
 function displayOperator(e){
   let operator = e.target.id;
-  /*
+  
   if (previous == "operator") {
     let currentDisplayed = equationDisplay.textContent;
     equationDisplay.textContent = currentDisplayed.slice(0,-1) + operator;
     equationArray("operator", operator)
   }
-  */
-  if (equationDisplay.textContent != ''){
+  
+  else if (equationDisplay.textContent != ''){
     equationArray("operator", operator);
     let addClicked = document.createTextNode(operator);
     equationDisplay.appendChild(addClicked);
-    previous = "operator";
   }
+  previous = "operator";
+
 }
 
 function displayClear(){
   equationDisplay.textContent = '';
   equation = [];
+  totalDisplay.textContent = '';
+  previous = '';
 }
 
 function displayDelete(){
   let currentDisplayed = equationDisplay.textContent;
-  let equationL = equation[equation.length - 1]
-  if (equationL.length > 1){
-    equation[equation.length - 1] = equation[equation.length - 1].slice(0,-1); 
+  if (equation[equation.length - 1].length > 1){
+    equation[(equation.length - 1)] = equation[equation.length - 1].slice(0,-1);
+    equationDisplay.textContent = currentDisplayed.slice(0,-1);
   }
-  else if (equationL.length = 1){
+  else { 
     equation.pop();
+    equationDisplay.textContent = currentDisplayed.slice(0,-1);
   }
-  equationDisplay.textContent = currentDisplayed.slice(0,-1);
 }
 
 function operate(){
-  let total = 0;
-  let newArray = [];
-  for(let i=1; i < equation.length - 1; i++){ //loops through second to second last
-    if (equation[i] == "*" || equation[i] == "/"){
-      equation[i]
-      total = equation[equation[i-1]] 
+  let newArray;
+
+  newArray = equation.map((str, index) => {
+    if (index== 0 || index%2 == 0){
+    return parseInt(str);
+    }
+    else {
+      return str;
+    }
+  });
+
+
+  while (newArray.length > 1){
+    let newItem = 0;
+    if (newArray.findIndex(key => key == "*" || key == "/") != -1) {
+      i = newArray.findIndex(key => key == "*" || key == "/")
+      if (newArray[i] == '*'){
+        newItem = multiply(newArray[i - 1], newArray[i + 1]);
+        newArray.splice(i-1, 3, newItem);  
+      }
+      else if (newArray[i] == '/'){
+        newItem = divide(newArray[i - 1], newArray[i + 1]);
+        newArray.splice(i-1, 3, newItem);  
+      }
+
+    }
+    else {
+      i = newArray.findIndex(key => key == "+" || key == "-")
+      if (newArray[i] == '+'){
+        newItem = add(newArray[i - 1], newArray[i + 1]);
+        newArray.splice(i-1, 3, newItem);  
+      }
+      else if (newArray[i] == '-'){
+        newItem = minus(newArray[i - 1], newArray[i + 1]);
+        newArray.splice(i-1, 3, newItem);  
+      }
     }
   }
+  totalDisplay.textContent = newArray[0];
+
 }
-//check if every second array item is an operator, if not dont do anything || or create the condition to update operator if operator already present
-//update array after each loop, collapsing three item eg 1 + 2, to 3
-
-
-/*
-function operate(operator, num1, num2) {
-  if (operator == 'add'){
-    add(num1, num2);
-  }
-  else if (operator == 'minus'){
-    add(num1, num2);
-  }
-  else if (operator == 'multiply'){
-    multiply(num1, num2);
-  }
-  else if (operator == 'divide'){
-    divide(num1, num2);
-  }
-}
-
 
 function add(num1, num2) {
 	return num1 + num2;
 }
 
-function subtract(num1, num2) {
+function minus(num1, num2) {
   return num1 - num2;
 }
 
@@ -121,4 +138,3 @@ function multiply(num1, num2) {
 function divide(num1, num2) {
   return num1/num2;
 }
-*/
